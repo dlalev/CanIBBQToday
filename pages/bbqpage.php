@@ -25,45 +25,50 @@ if (isset($_SESSION['location'])) {
 
         // Initialize the message variable
         $message = '';
+        $dayMessage = '';
 
         // Switch-case statement for temperature conditions
         switch (true) {
             case ($temperature < 13):
                 $message .= "It's more like a hot chocolate kind of weather...";
-                $backgroundImage = "cold_weather.jpg";
+                $backgroundImage = "../pictures/spare_ribs.jpeg";
                 break;
             case ($temperature >= 14 && $temperature <= 17):
                 $message .= "Kinda cold but if you're enthusiastic... BBQ is always a good idea.";
-                $backgroundImage = "custom.png";
+                $backgroundImage = "../pictures/14-17.jpeg";
                 break;
             case ($temperature >= 18 && $temperature <= 20):
-                $message .= "Chilly but why not?";
-                $backgroundImage = "custom.png";
+                $message .= " Chilly but why not? ";
+                $backgroundImage = "../pictures/18-20.jpeg";
                 break;
-            case ($temperature >= 21 && $temperature <= 27):
+            case ($temperature == 21):
                 $message .= "Looks kinda good.";
-                $backgroundImage = "custom.png";
+                $backgroundImage = "../pictures/21.jpeg";
+                break;    
+            case ($temperature > 21 && $temperature <= 27):
+                $message .= "Perfect for BBQ.Why you even checkin'?";
+                $backgroundImage = "../pictures/perfect.jpeg";
                 break;
             case ($temperature >= 28 && $temperature <= 30):
                 $message .= "Bring cold beer and light the BBQ.";
-                $backgroundImage = "custom.png";
+                $backgroundImage = "../pictures/28-30.jpeg";
                 break;
             case ($temperature >= 31 && $temperature <= 33):
                 $message .= "Light it up and bring more sunscreen.";
-                $backgroundImage = "custom.png";
+                $backgroundImage = "../pictures/31-33.jpeg";
                 break;
             default:
                 $message .= "Too hot to handle. BBQ at your own risk.";
-                $backgroundImage = "custom.png";
+                $backgroundImage = "../pictures/Too_hot.jpeg";
         }
 
         // Add message based on humidity using a ternary operator
-        $message .= ($humidity > 70) ? " Too humid." : "";
+        $message .= ($humidity > 70) ? "  A bit too humid, but should be fine   " : "";
 
         // Switch-case statement for wind speed conditions
         switch (true) {
             case ($windSpeed >= 0 && $windSpeed <= 10):
-                $message .= " Perfect.";
+                $message .= " Perfect wind speed as well.";
                 break;
             case ($windSpeed >= 11 && $windSpeed <= 20):
                 $message .= " Wind is not gonna ruin your BBQ.";
@@ -78,7 +83,8 @@ if (isset($_SESSION['location'])) {
         // Switch-case statement for daytime and nighttime background image
         switch ($isDay) {
             case 0:
-                $backgroundImage = "custom.png";
+                $backgroundImage = "../pictures/is_day=0.jpeg";
+                $dayMessage = "Bring your head light so you don't lose the meat";
                 break;
             case 1:
             default:
@@ -100,7 +106,7 @@ if (isset($_SESSION['location'])) {
 <html>
 <head>
     <title>Your Location</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../bbqpage.css">
     <style>
         /* Custom background based on $backgroundImage variable */
         body {
@@ -111,9 +117,12 @@ if (isset($_SESSION['location'])) {
 </head>
 <body>
     <div class="container">
-        <h1>Your Location: <?php echo htmlspecialchars($location); ?></h1>
-        <h2>Weather Information</h2>
+        <h1>Is <?php echo htmlspecialchars($location); ?> good enough for BBQ?</h1>
+        <br>
+        <h3><?php echo htmlspecialchars($dayMessage); ?></h3>
+        <br>
         <p><?php echo htmlspecialchars($message); ?></p>
+        <br>
     </div>
 </body>
 </html>

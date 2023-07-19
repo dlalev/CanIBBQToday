@@ -10,7 +10,6 @@
     }
     else{
         displayForm();
-        echo("ELSE");
     }
 
     function displayForm(){
